@@ -23,10 +23,10 @@ fi
 load-reeve-env >/tmp/ssh-commands
 cat $SCRIPT >>/tmp/ssh-commands
 
-COMMAND="ssh $([[ -n "$SSH_LOGIN_KEY" ]] && echo -n "-i ~/.ssh/id_ssh" ||:) $([[ -n "$SSH_LOGIN_USER" ]] && printf "-o User=%s" "$SSH_LOGIN_USER" ||:) $([[ -n "$PORT" ]] && printf "-o Port=%s" "$PORT" ||:) -o StrictHostKeyChecking=accept-new $SSH_OPTIONS $HOST"
+COMMAND="ssh $([[ -n "$SSH_LOGIN_KEY" ]] && echo -n "-i ~/.ssh/id_ssh" ||:) $([[ -n "$SSH_LOGIN_USER" ]] && printf "-o User=%s" "$SSH_LOGIN_USER" ||:) $([[ -n "$PORT" ]] && printf "-o Port=%s" "$PORT" ||:) $([[ -z "$SSH_LOGIN_PASSWORD" ]] && echo -n "-o BatchMode=yes" ||:) -o StrictHostKeyChecking=accept-new $SSH_OPTIONS $HOST"
 
 if [ -n "$SSH_LOGIN_PASSWORD" ]; then
   sshpass -eSSH_LOGIN_PASSWORD $COMMAND </tmp/ssh-commands
 else
-  $COMMAND -o BatchMode=yes </tmp/ssh-commands
+  $COMMAND </tmp/ssh-commands
 fi
