@@ -23,7 +23,7 @@ fi
 load-reeve-env >/tmp/ssh-commands
 cat $SCRIPT >>/tmp/ssh-commands
 
-COMMAND="ssh $([[ -n "$SSH_LOGIN_KEY" ]] && echo "-i ~/.ssh/id_ssh" ||:) -o StrictHostKeyChecking=accept-new -l ${SSH_LOGIN_USER:-$(whoami)} $HOST"
+COMMAND="ssh $([[ -n "$SSH_LOGIN_KEY" ]] && echo "-i ~/.ssh/id_ssh" ||:) $([[ -n "$SSH_LOGIN_USER" ]] && printf "-o User=%s" "$SSH_LOGIN_USER" ||:) -o StrictHostKeyChecking=accept-new $HOST"
 
 if [ -n "$SSH_LOGIN_PASSWORD" ]; then
   sshpass -eSSH_LOGIN_PASSWORD $COMMAND </tmp/ssh-commands
