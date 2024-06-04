@@ -21,6 +21,10 @@ ENV SSH_LOGIN_PASSWORD=
 ENV SSH_LOGIN_KEY=
 # HOST: Host to connect to
 ENV HOST=
+# PORT: Custom port to connect to
+ENV PORT=
+# SSH_OPTIONS: Additional SSH options ("SSH_OPTIONS=-o Option1=value -o Option2=value")
+ENV SSH_OPTIONS=
 # SCRIPT: Script file to be executed (or - for stdin)
 ENV SCRIPT=-
 # ENV_<name>: Variables to be forwarded to the remote host
