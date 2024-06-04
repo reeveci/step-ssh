@@ -19,8 +19,10 @@ ENV SSH_LOGIN_USER=
 ENV SSH_LOGIN_PASSWORD=
 # SSH_LOGIN_KEY: SSH private key file
 ENV SSH_LOGIN_KEY=
-# SSH_HOST: Host to connect to
-ENV SSH_HOST=
+# HOST: Host to connect to
+ENV HOST=
+# SCRIPT: Script file to be executed (or - for stdin)
+ENV SCRIPT=-
 # ENV_<name>: Variables to be forwarded to the remote host
 
 ENTRYPOINT ["docker-entrypoint.sh"]

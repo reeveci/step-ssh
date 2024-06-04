@@ -8,8 +8,8 @@ fi
 
 cd /reeve/src/
 
-if [ -z "$SSH_HOST" ]; then
-  echo Missing SSH host
+if [ -z "$HOST" ]; then
+  echo No host specified to connect to
   exit 1
 fi
 
@@ -21,9 +21,9 @@ if [ -n "$SSH_LOGIN_KEY" ]; then
 fi
 
 load-reeve-env >/tmp/ssh-commands
-cat >>/tmp/ssh-commands
+cat $SCRIPT >>/tmp/ssh-commands
 
-COMMAND="ssh $([[ -n "$SSH_LOGIN_KEY" ]] && echo "-i ~/.ssh/id_ssh" ||:) -o StrictHostKeyChecking=accept-new -l ${SSH_LOGIN_USER:-$(whoami)} $SSH_HOST"
+COMMAND="ssh $([[ -n "$SSH_LOGIN_KEY" ]] && echo "-i ~/.ssh/id_ssh" ||:) -o StrictHostKeyChecking=accept-new -l ${SSH_LOGIN_USER:-$(whoami)} $HOST"
 
 if [ -n "$SSH_LOGIN_PASSWORD" ]; then
   sshpass -eSSH_LOGIN_PASSWORD $COMMAND </tmp/ssh-commands
