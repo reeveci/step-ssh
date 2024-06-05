@@ -22,7 +22,7 @@ func main() {
 		name := strings.TrimPrefix(param, "ENV_")
 		value := os.Getenv(param)
 		if name != "" && value != "" {
-			fmt.Printf("%s=%s\n", name, value)
+			fmt.Printf("%s=\"%s\"\n", name, strings.ReplaceAll(value, "\"", "\\\""))
 		}
 	}
 }
